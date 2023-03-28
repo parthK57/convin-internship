@@ -1,7 +1,7 @@
+import LoginForm from "../components/LoginFrom";
 import Navbar from "../components/Navbar";
-import SignUpForm from "../components/SignUpForm";
 
-const SignUp = () => {
+const Login = () => {
   return (
     <>
       <Navbar />
@@ -10,11 +10,11 @@ const SignUp = () => {
           <div className="h-[50%] w-[50%] overflow-hidden bg-[url('https://img.freepik.com/free-vector/freelancer-working-laptop-her-house_1150-35048.jpg?w=740&t=st=1679991235~exp=1679991835~hmac=e95508798275b0280d6c2e8e1e3604beb6d31dc7d2730b441b544543eb2cd4a3')] bg-cover bg-center bg-no-repeat transition-all ease-in-out hover:scale-105"></div>
         </div>
         <div className="col flex h-[calc(100vh-70px)] items-center justify-center">
-          <SignUpForm />
+          <LoginForm />
         </div>
       </div>
     </>
   );
 };
 
-export default SignUp;
+export default Login;
