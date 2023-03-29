@@ -6,10 +6,10 @@ export const CardsSlice = createSlice({
     value: [],
   },
   reducers: {
-    getCards: (state, action) => {
+    setCards: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { getCards } = CardsSlice.actions;
+export const { setCards } = CardsSlice.actions;

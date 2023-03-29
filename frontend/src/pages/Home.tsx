@@ -7,6 +7,9 @@ import { useSelector } from "react-redux";
 import CreateBucket from "../components/Home/CreateBucket";
 import CreateCard from "../components/Home/CreateCard";
 import { toggleCardModal } from "../slices/CreateCardSlice";
+import { useEffect } from "react";
+import { setBuckets } from "../slices/BucketsSlice";
+import axios from "axios";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -16,7 +19,24 @@ const Home = () => {
   const createCardModalStatus = useSelector(
     (state: any) => state.card.value.isActive
   );
-  
+  let buckets = [];
+  let cards = [];
+
+  useEffect(() => {
+    try {
+      // TODO: AXIOS REQ TO GET CARDS
+    } catch (error: any) {
+      alert(error.message);
+    }
+  }, [createCardModalStatus]);
+
+  useEffect(() => {
+    try {
+      // TODO: AXIOS REQ TO GET BUCKETS
+    } catch (error: any) {
+      alert(error.message);
+    }
+  }, [createBucketModalStatus]);
   return (
     <>
       <NavbarHome />

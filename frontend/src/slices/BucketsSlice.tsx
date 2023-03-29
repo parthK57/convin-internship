@@ -6,10 +6,10 @@ export const BucketsSlice = createSlice({
     value: [],
   },
   reducers: {
-    getBuckets: (state, action) => {
+    setBuckets: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { getBuckets } = BucketsSlice.actions;
+export const { setBuckets } = BucketsSlice.actions;
