@@ -1,8 +1,22 @@
-import Card from "../components/Card";
+import Card from "../components/Home/Card";
 import { FaHistory } from "react-icons/fa";
 import NavbarHome from "../components/NavbarHome";
+import { useDispatch } from "react-redux";
+import { toggleModal } from "../slices/CreateBucketSlice";
+import { useSelector } from "react-redux";
+import CreateBucket from "../components/Home/CreateBucket";
+import CreateCard from "../components/Home/CreateCard";
+import { toggleCardModal } from "../slices/CreateCardSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const createBucketModalStatus = useSelector(
+    (state: any) => state.createBucketModal.value.isActive
+  );
+  const createCardModalStatus = useSelector(
+    (state: any) => state.card.value.isActive
+  );
+  
   return (
     <>
       <NavbarHome />
@@ -16,11 +30,27 @@ const Home = () => {
               Buckets
             </div>
             <div className="flex h-[225px] flex-col justify-center overflow-y-scroll">
-              <span className="flex px-5 py-2 text-base cursor-pointer pointer-events-auto hover:text-indigo-500">Create Bucket</span>
-              <span className="flex px-5 py-2 text-base cursor-pointer pointer-events-auto hover:text-indigo-500">Create Card</span>
-              <span className="flex px-5 py-2 text-base cursor-pointer pointer-events-auto hover:text-indigo-500">Sports</span>
-              <span className="flex px-5 py-2 text-base cursor-pointer pointer-events-auto hover:text-indigo-500">Education</span>
-              <span className="flex px-5 py-2 text-base cursor-pointer pointer-events-auto hover:text-indigo-500">Music</span>
+              <span
+                className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500"
+                onClick={() => dispatch(toggleModal({ isActive: true }))}
+              >
+                Create Bucket
+              </span>
+              <span
+                className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500"
+                onClick={() => dispatch(toggleCardModal({ isActive: true }))}
+              >
+                Create Card
+              </span>
+              <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
+                Sports
+              </span>
+              <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
+                Education
+              </span>
+              <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
+                Music
+              </span>
             </div>
           </div>
           <span className="pointer-events-auto flex cursor-pointer items-center gap-3 px-5 py-2 text-base">
@@ -33,6 +63,8 @@ const Home = () => {
           <Card Link={"https://www.youtube.com/watch?v=iBUJVy8phqw&t=244s"} />
         </div>
       </div>
+      {createBucketModalStatus ? <CreateBucket /> : null}
+      {createCardModalStatus ? <CreateCard /> : null}
     </>
   );
 };

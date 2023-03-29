@@ -2,9 +2,9 @@ import { BsCameraVideoFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Modal from "./Modal";
-import { setModal } from "../slices/ModalSlice";
+import { setModal } from "../../slices/ModalSlice";
 
-interface card {
+type card = {
   Link: string;
 }
 

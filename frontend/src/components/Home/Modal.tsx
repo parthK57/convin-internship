@@ -1,6 +1,6 @@
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { clear } from "../slices/ModalSlice";
+import { clear } from "../../slices/ModalSlice";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
