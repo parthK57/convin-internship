@@ -10,11 +10,16 @@ dotenv.config({
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 // ROUTES
+import usersRouter from "./routes/users";
 
-
+app.use(usersRouter);
 
 app.listen(process.env.PORT, () =>
   console.log(`Server Live at http://localhost:${process.env.PORT}`)

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const NavbarHome = () => {
   const navigate = useNavigate();
-  const user = localStorage.getItem("email")?.split("@")[0];
+  const user = localStorage.getItem("username")?.split(" ")[0];
   const [toggle, setToggle] = useState(false);
   return (
     <>
