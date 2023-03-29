@@ -4,15 +4,11 @@ import { useDispatch } from "react-redux";
 import Modal from "./Modal";
 import { setModal } from "../../slices/ModalSlice";
 
-type card = {
-  Link: string;
-}
-
-const Card = ({ Link }: card) => {
+const Card = ({ data }: any) => {
   const isActive = useSelector((state: any) => state.modal.value.isActive);
   const dispatch = useDispatch();
   const openModal = () => {
-    dispatch(setModal({ isActive: true, link: Link }));
+    dispatch(setModal({ isActive: true, link: data.link }));
   };
   return (
     <>
@@ -23,8 +19,8 @@ const Card = ({ Link }: card) => {
         <div className="flex h-[70%] w-full items-center justify-center text-[50px] text-gray-800">
           <BsCameraVideoFill />
         </div>
-        <div className="text-center">Life of Pi</div>
-        <div className="text-center">Movie</div>
+        <div className="text-center">{data.card_name}</div>
+        <div className="text-center">{data.bucket_name}</div>
       </div>
 
       {isActive ? <Modal /> : null}

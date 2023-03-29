@@ -19,16 +19,41 @@ const Home = () => {
   const createCardModalStatus = useSelector(
     (state: any) => state.card.value.isActive
   );
-  let buckets = [];
-  let cards = [];
+  let buckets: string[] = [];
+  let cards: string[] = [];
 
-  useEffect(() => {
+  async function getBucketData() {
     try {
-      // TODO: AXIOS REQ TO GET CARDS
+      const { data } = await axios({
+        method: "get",
+        url: "http://localhost:5000/buckets",
+        headers: {
+          email: localStorage.getItem("email"),
+        },
+      });
+      buckets = data;
     } catch (error: any) {
       alert(error.message);
     }
-  }, [createCardModalStatus]);
+  }
+  getBucketData();
+  async function getCardData() {
+    try {
+      const { data } = await axios({
+        method: "get",
+        url: "http://localhost:5000/cards",
+        headers: {
+          email: localStorage.getItem("email"),
+        },
+      });
+      cards = data;
+    } catch (error: any) {
+      alert(error.message);
+    }
+  }
+  getCardData();
+
+  useEffect(() => {}, [createCardModalStatus]);
 
   useEffect(() => {
     try {
@@ -62,15 +87,13 @@ const Home = () => {
               >
                 Create Card
               </span>
-              <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
-                Sports
-              </span>
-              <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
-                Education
-              </span>
-              <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
-                Music
-              </span>
+              {buckets.map((bucket) => {
+                return (
+                  <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
+                    `${bucket}`
+                  </span>
+                );
+              })}
             </div>
           </div>
           <span className="pointer-events-auto flex cursor-pointer items-center gap-3 px-5 py-2 text-base">
@@ -79,8 +102,9 @@ const Home = () => {
           </span>
         </div>
         <div className="grid-col-1 grid w-[100%] gap-5 overflow-y-scroll p-20 sm:grid-cols-2 md:w-[75%] md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {/* //TODO: MAP THE CARDS */}
-          <Card Link={"https://www.youtube.com/watch?v=iBUJVy8phqw&t=244s"} />
+          {cards.map((card) => {
+            return <Card data={card} />;
+          })}
         </div>
       </div>
       {createBucketModalStatus ? <CreateBucket /> : null}
