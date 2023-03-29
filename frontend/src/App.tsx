@@ -2,15 +2,19 @@ import { Routes, Route } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import { Provider } from "react-redux";
+import store from "./store";
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Login />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-      </Routes>
+      <Provider store={store}>
+        <Routes>
+          <Route path="/" element={<Login />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/home" element={<Home />}></Route>
+        </Routes>
+      </Provider>
     </>
   );
 }

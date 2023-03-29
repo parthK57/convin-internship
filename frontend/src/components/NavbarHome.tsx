@@ -6,21 +6,22 @@ import { motion } from "framer-motion";
 
 const NavbarHome = () => {
   const navigate = useNavigate();
+  const user = localStorage.getItem("email")?.split("@")[0];
   const [toggle, setToggle] = useState(false);
   return (
     <>
-      <div className="w relative flex h-[70px] w-screen items-center justify-between bg-purple-900 px-10 text-white">
+      <div className="w relative flex h-[70px] w-screen items-center justify-between bg-indigo-800 px-10 text-white">
         <div className="text-2xl">
           <Link to="/aboutus">Convin</Link>
         </div>
         <div className="hidden gap-8 md:flex items-center">
           <span className="text-lg">
-            Hello, User!{/* // TODO: MAKE IT DYNAMIC */}
+            Hello, {`${user}`}!
           </span>
           <span>
             <button
               onClick={() => navigate("/")}
-              className="rounded-lg bg-orange-500 px-3 py-2 text-white"
+              className="rounded-lg bg-amber-500 px-3 py-2 text-white"
             >
               Logout
             </button>

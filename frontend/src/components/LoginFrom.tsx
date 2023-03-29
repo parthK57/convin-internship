@@ -10,6 +10,8 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       // TODO: CREATE AXIOS POST REQ
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
       console.log(email, password);
     } catch (error: any) {
       alert(error.message);
