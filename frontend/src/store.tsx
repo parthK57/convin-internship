@@ -9,6 +9,7 @@ import { CardsSlice } from "./slices/CardsSlice";
 import { DeleteCardSlice } from "./slices/DeleteCardsSlice";
 import { EditCardModalSlice } from "./slices/EditCardModalSlice";
 import { ActiveBucketSlice } from "./slices/ActiveBucketSlice";
+import { HistorySlice } from "./slices/HistorySlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     deleteCards: DeleteCardSlice.reducer,
     editCardModal: EditCardModalSlice.reducer,
     activeBucket: ActiveBucketSlice.reducer,
+    history: HistorySlice.reducer,
   },
 });
 

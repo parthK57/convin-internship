@@ -12,6 +12,8 @@ import axios from "axios";
 import { setBuckets } from "../slices/BucketsSlice";
 import { setCards } from "../slices/CardsSlice";
 import { setBucket } from "../slices/ActiveBucketSlice";
+import HistoryModal from "../components/Home/HistoryModal";
+import { setState } from "../slices/HistorySlice";
 
 // TYPES
 interface bucket {
@@ -39,6 +41,9 @@ const Home = () => {
   );
   const activeBucket = useSelector((state: any) => state.activeBucket.value);
   const cards: cardsArray = useSelector((state: any) => state.cards.value);
+  const historyState: boolean = useSelector(
+    (state: any) => state.history.isActive
+  );
 
   async function getBucketData() {
     try {
@@ -150,7 +155,10 @@ const Home = () => {
               })}
             </div>
           </div>
-          <span className="pointer-events-auto flex cursor-pointer items-center gap-3 px-5 py-2 text-base">
+          <span
+            onClick={() => dispatch(setState(true))}
+            className="pointer-events-auto flex cursor-pointer items-center gap-3 px-5 py-2 text-base"
+          >
             History
             <FaHistory className="text-lg text-indigo-400" />
           </span>
@@ -164,6 +172,7 @@ const Home = () => {
       </div>
       {createBucketModalStatus ? <CreateBucket /> : null}
       {createCardModalStatus ? <CreateCard /> : null}
+      {historyState ? <HistoryModal /> : null}
     </>
   );
 };
