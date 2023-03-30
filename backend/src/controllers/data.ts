@@ -2,7 +2,7 @@ import ErrorHandler from "../Services/ErrorHandler";
 import db from "../database/db";
 
 export const getBuckets = async (req: any, res: any, next: any) => {
-  const email = req.headers.email;
+  const email = req.headers.email as string;
   try {
     const [userData] = (await db.execute("SELECT id FROM users ;", [
       email,
@@ -30,7 +30,7 @@ export const getCards = async (req: any, res: any, next: any) => {
     const userId = userData[0].id;
 
     const [cardsData] = (await db.execute(
-      "SELECT cards.card_name, cards.link, buckets.bucket_name FROM cards INNER JOIN buckets ON buckets.id = cards.bucket_name WHERE cards.website_user = ?;",
+      "SELECT cards.id, cards.card_name, cards.link, buckets.bucket_name FROM cards INNER JOIN buckets ON buckets.id = cards.bucket_name WHERE cards.website_user = ?;",
       [userId]
     )) as any;
     res.status(200).json(cardsData);
@@ -66,11 +66,11 @@ export const createBucket = async (req: any, res: any, next: any) => {
 };
 
 export const createCard = async (req: any, res: any, next: any) => {
-  const email = req.headers.email;
+  const email = req.headers.email as string;
   const body = req.body;
-  const card_name = body.card_name;
-  const bucket_name = body.bucket_name;
-  const link = body.link;
+  const card_name = body.card_name as string;
+  const bucket_name = body.bucket_name as string;
+  const link = body.link as string;
 
   try {
     const [userData] = (await db.execute(
@@ -95,5 +95,36 @@ export const createCard = async (req: any, res: any, next: any) => {
   } catch (error: any) {
     if (error.statusCode) return next(error);
     else return next(new ErrorHandler("Server error!", 500));
+  }
+};
+
+export const deleteCardHandler = async (req: any, res: any, next: any) => {
+  const cardId = req.headers.id as string;
+
+  try {
+    await db.execute("DELETE FROM cards WHERE id = ?;", [cardId]);
+    res.status(200).json({ result: "Success" });
+  } catch (error: any) {
+    if (error.statusCode) return next(error);
+    else return next(new ErrorHandler("Server error!", 500));
+  }
+};
+
+export const deleteMultipleCardsHandler = async (
+  req: any,
+  res: any,
+  next: any
+) => {
+  let cards = req.headers.cardsarray as string;
+  let cardsArray = cards.split(",");
+
+  try {
+    cardsArray.forEach(async (card) => {
+      if (card) await db.execute("DELETE FROM cards WHERE id = ?;", [card]);
+    });
+    res.status(200).json({ result: "Success" });
+  } catch (error: any) {
+    if (error.statusCode) return next(error);
+    else return next("Server error!", 500);
   }
 };

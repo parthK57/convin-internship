@@ -17,12 +17,13 @@ interface bucket {
   bucket_name: string;
 }
 export interface card {
+  id: string;
   card_name: string;
   link: string;
   bucket_name: string;
 }
-type cardsArray = Array<card>;
-type bucketsArray = Array<bucket>;
+export type cardsArray = Array<card>;
+export type bucketsArray = Array<bucket>;
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -77,10 +78,43 @@ const Home = () => {
       alert(error.message);
     }
   }, [createBucketModalStatus]);
+
+  const cardsArray: string[] = useSelector(
+    (state: any) => state.deleteCards.value
+  );
+
+  const deleteAll = async (e: any) => {
+    e.preventDefault();
+    console.log(cardsArray);
+    try {
+      const resp = await axios({
+        method: "delete",
+        url: "http://localhost:5000/cards/multicards",
+        headers: {
+          email: localStorage.getItem("email"),
+          password: localStorage.getItem("password"),
+          cardsArray: cardsArray,
+        },
+      });
+      if (resp.status === 200) {
+        alert("Deleted successfuly!");
+        window.location.reload();
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
   return (
     <>
       <NavbarHome />
       <div className="flex h-[calc(100vh-70px)] w-screen justify-between">
+        <button
+          className="absolute right-0 mr-9 mt-4 rounded-lg bg-red-600 px-3 py-2 text-white hover:bg-red-500"
+          onClick={deleteAll}
+        >
+          Delete All
+        </button>
         <div className="hidden flex-col items-center justify-between bg-indigo-100 pb-10 shadow-sm sm:flex sm:w-[30%] md:w-[25%] lg:w-[20%] xl:w-[19%]">
           <div
             id="buckets"
