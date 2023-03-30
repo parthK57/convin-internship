@@ -1,13 +1,29 @@
+import { useState } from "react";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { toggleModal } from "../../slices/CreateBucketSlice";
-import { useState } from "react";
 
 const BucketForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-  const uploadBucket = () => {
+  const uploadBucket = async (e: any) => {
+    e.preventDefault();
     try {
-      // TODO: MAKE AXIOS REQ
+      const resp = await axios({
+        method: "post",
+        url: "http://localhost:5000/buckets",
+        headers: {
+          email: localStorage.getItem("email"),
+          password: localStorage.getItem("password"),
+        },
+        data: {
+          name,
+        },
+      });
+      if (resp.status === 201) {
+        alert("Success!");
+        dispatch(toggleModal(toggleModal({ isActive: false })));
+      } else console.log(resp);
     } catch (error: any) {
       alert(error.message);
     }

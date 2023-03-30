@@ -3,7 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const BucketsSlice = createSlice({
   name: "buckets",
   initialState: {
-    value: [],
+    value: [
+      {
+        bucket_name: "",
+      },
+    ],
   },
   reducers: {
     setBuckets: (state, action) => {

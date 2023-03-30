@@ -8,8 +8,21 @@ import CreateBucket from "../components/Home/CreateBucket";
 import CreateCard from "../components/Home/CreateCard";
 import { toggleCardModal } from "../slices/CreateCardSlice";
 import { useEffect } from "react";
-import { setBuckets } from "../slices/BucketsSlice";
 import axios from "axios";
+import { setBuckets } from "../slices/BucketsSlice";
+import { setCards } from "../slices/CardsSlice";
+
+// TYPES
+interface bucket {
+  bucket_name: string;
+}
+interface card {
+  card_name: string;
+  link: string;
+  bucket_name: string;
+}
+type cardsArray = Array<card>;
+type bucketsArray = Array<bucket>;
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,8 +32,10 @@ const Home = () => {
   const createCardModalStatus = useSelector(
     (state: any) => state.card.value.isActive
   );
-  let buckets: string[] = [];
-  let cards: string[] = [];
+  const buckets: bucketsArray = useSelector(
+    (state: any) => state.buckets.value
+  );
+  const cards: cardsArray = useSelector((state: any) => state.cards.value);
 
   async function getBucketData() {
     try {
@@ -31,7 +46,7 @@ const Home = () => {
           email: localStorage.getItem("email"),
         },
       });
-      buckets = data;
+      dispatch(setBuckets(data));
     } catch (error: any) {
       alert(error.message);
     }
@@ -39,25 +54,27 @@ const Home = () => {
   getBucketData();
   async function getCardData() {
     try {
-      const { data } = await axios({
+      const resp = await axios({
         method: "get",
         url: "http://localhost:5000/cards",
         headers: {
           email: localStorage.getItem("email"),
         },
       });
-      cards = data;
+      if (resp.status === 200) dispatch(setCards(resp.data));
     } catch (error: any) {
       alert(error.message);
     }
   }
   getCardData();
 
-  useEffect(() => {}, [createCardModalStatus]);
+  useEffect(() => {
+    getCardData();
+  }, [createCardModalStatus]);
 
   useEffect(() => {
     try {
-      // TODO: AXIOS REQ TO GET BUCKETS
+      getBucketData();
     } catch (error: any) {
       alert(error.message);
     }
@@ -90,7 +107,7 @@ const Home = () => {
               {buckets.map((bucket) => {
                 return (
                   <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
-                    `${bucket}`
+                    {bucket.bucket_name}
                   </span>
                 );
               })}

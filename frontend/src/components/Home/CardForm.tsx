@@ -2,16 +2,34 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
 import { toggleCardModal } from "../../slices/CreateCardSlice";
+import { useSelector } from "react-redux";
 
 const CardForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [bucket, setBucket] = useState("");
   const [link, setLink] = useState("");
+  const buckets = useSelector((state: any) => state.buckets.value);
 
-  const uploadCard = () => {
+  const uploadCard = async () => {
     try {
-      // TODO: AXIOS REQ TO BACKEND
+      const resp = await axios({
+        method: "post",
+        url: "http://localhost:5000/cards",
+        headers: {
+          email: localStorage.getItem("email"),
+          password: localStorage.getItem("password"),
+        },
+        data: {
+          card_name: name,
+          bucket_name: bucket,
+          link: link,
+        },
+      });
+      if (resp.status === 201) {
+        dispatch(toggleCardModal({ isActive: false }));
+        alert("Success!");
+      }
     } catch (error: any) {
       alert(error.message);
     }
@@ -36,12 +54,17 @@ const CardForm = () => {
         </div>
         <div className="flex flex-col gap-2 px-4">
           <label>Bucket :</label>
-          <input
+          <select
             onChange={(e) => setBucket(e.target.value)}
-            required
-            type="text"
-            className="rounded-md px-2 py-1"
-          />
+            className="rounded-md bg-white px-2 py-2"
+          >
+            <option value="">Not Selected</option>
+            {buckets.map((bucket: any) => {
+              return (
+                <option value={bucket.bucket_name}>{bucket.bucket_name}</option>
+              );
+            })}
+          </select>
         </div>
         <div className="flex flex-col gap-2 px-4">
           <label>Link :</label>
