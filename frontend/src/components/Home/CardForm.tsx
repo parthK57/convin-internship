@@ -11,7 +11,8 @@ const CardForm = () => {
   const [link, setLink] = useState("");
   const buckets = useSelector((state: any) => state.buckets.value);
 
-  const uploadCard = async () => {
+  const uploadCard = async (e: any) => {
+    e.preventDefault();
     try {
       const resp = await axios({
         method: "post",

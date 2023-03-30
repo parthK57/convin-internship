@@ -16,7 +16,7 @@ import { setCards } from "../slices/CardsSlice";
 interface bucket {
   bucket_name: string;
 }
-interface card {
+export interface card {
   card_name: string;
   link: string;
   bucket_name: string;
@@ -51,7 +51,6 @@ const Home = () => {
       alert(error.message);
     }
   }
-  getBucketData();
   async function getCardData() {
     try {
       const resp = await axios({
@@ -66,7 +65,6 @@ const Home = () => {
       alert(error.message);
     }
   }
-  getCardData();
 
   useEffect(() => {
     getCardData();

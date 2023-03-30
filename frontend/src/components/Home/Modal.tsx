@@ -9,8 +9,7 @@ const Modal = () => {
 
   const iframeLink = useSelector(
     (state: any) => state.modal.value.link
-  ).replace("watch?v=", "v/");
-
+  ).replace("watch?v=", "embed/");
   return (
     <>
       <motion.div
@@ -22,8 +21,8 @@ const Modal = () => {
       >
         <embed
           type="video/webm"
-          src={`${iframeLink}`}
-          className="h-[50%] w-[50%]"
+          src={iframeLink}
+          className="h-[50%] w-[100%] md:w-[50%]"
         ></embed>
         <AiOutlineClose className="pointer-events-auto absolute top-0 right-0 mr-4 mt-4 cursor-pointer text-3xl text-red-600" />
       </motion.div>
