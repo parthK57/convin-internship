@@ -4,7 +4,7 @@ import { clear } from "../../slices/ModalSlice";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
-const Modal = () => {
+const IframeModal = () => {
   const dispatch = useDispatch();
 
   const iframeLink = useSelector(
@@ -30,4 +30,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default IframeModal;

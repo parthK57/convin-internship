@@ -1,11 +1,13 @@
 import { BsCameraVideoFill, BsThreeDotsVertical } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import Modal from "./Modal";
+import Modal from "./IframeModal";
 import { setModal } from "../../slices/ModalSlice";
 import { useState } from "react";
 import axios from "axios";
 import { addCard, removeCard } from "../../slices/DeleteCardsSlice";
+import EditCardModal from "./EditCardModal";
+import { setEditCardModal } from "../../slices/EditCardModalSlice";
 
 const Card = ({ data }: any) => {
   const isActive = useSelector((state: any) => state.modal.value.isActive);
@@ -15,6 +17,9 @@ const Card = ({ data }: any) => {
   };
   const [toggleDropDown, setToggleDropDown] = useState(false);
   const [borderStatus, setBorderStatus] = useState("border-none");
+  const editCardModal: boolean = useSelector(
+    (state: any) => state.editCardModal.value.isActive
+  );
 
   const deleteCard = async (e: any) => {
     e.preventDefault();
@@ -53,7 +58,19 @@ const Card = ({ data }: any) => {
         />
         {toggleDropDown && (
           <div className="absolute z-10 mt-8 flex w-[90%] flex-col rounded-md bg-white">
-            <span className="border-b p-1 px-3 text-sm hover:text-amber-400">
+            <span
+              onClick={() => {
+                dispatch(
+                  setEditCardModal({
+                    isActive: true,
+                    cardId: data.id,
+                    cardName: data.card_name,
+                    bucketName: data.bucket_name,
+                  })
+                );
+              }}
+              className="border-b p-1 px-3 text-sm hover:text-amber-400"
+            >
               Edit
             </span>
             <span
@@ -81,6 +98,7 @@ const Card = ({ data }: any) => {
         )}
       </div>
       {isActive ? <Modal /> : null}
+      {editCardModal ? <EditCardModal /> : null}
     </>
   );
 };

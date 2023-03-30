@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import CreateBucket from "../components/Home/CreateBucket";
 import CreateCard from "../components/Home/CreateCard";
 import { toggleCardModal } from "../slices/CreateCardSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { setBuckets } from "../slices/BucketsSlice";
 import { setCards } from "../slices/CardsSlice";
@@ -36,6 +36,7 @@ const Home = () => {
   const buckets: bucketsArray = useSelector(
     (state: any) => state.buckets.value
   );
+  const [activeBucket, setActiveBucket] = useState("");
   const cards: cardsArray = useSelector((state: any) => state.cards.value);
 
   async function getBucketData() {
@@ -138,7 +139,10 @@ const Home = () => {
               </span>
               {buckets.map((bucket) => {
                 return (
-                  <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
+                  <span
+                    onClick={() => setActiveBucket(bucket.bucket_name)}
+                    className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500"
+                  >
                     {bucket.bucket_name}
                   </span>
                 );
@@ -152,7 +156,8 @@ const Home = () => {
         </div>
         <div className="grid-col-1 grid w-[100%] gap-5 overflow-y-scroll p-20 sm:grid-cols-2 md:w-[75%] md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {cards.map((card) => {
-            return <Card data={card} />;
+            if (card.bucket_name === activeBucket) return <Card data={card} />;
+            else return null;
           })}
         </div>
       </div>

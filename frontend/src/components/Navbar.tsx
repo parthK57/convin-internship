@@ -22,9 +22,6 @@ const Navbar = () => {
           <span className="pointer-events-auto cursor-pointer text-lg transition-all duration-300 ease-in hover:scale-105">
             <Link to="/about">About</Link>
           </span>
-          <span className="pointer-events-auto cursor-pointer text-lg transition-all duration-300 ease-in hover:scale-105">
-            <Link to="/contactus">Contact Us</Link>
-          </span>
         </div>
         {toggle && (
           <motion.div
@@ -41,9 +38,6 @@ const Navbar = () => {
             </span>
             <span className="pointer-events-auto cursor-pointer text-lg transition-all duration-300 ease-in hover:scale-105">
               <Link to="/about">About</Link>
-            </span>
-            <span className="pointer-events-auto cursor-pointer text-lg transition-all duration-300 ease-in hover:scale-105">
-              <Link to="/contactus">Contact Us</Link>
             </span>
             <span className="pointer-events-auto cursor-pointer text-2xl transition-all duration-300 ease-in hover:scale-105">
               <AiOutlineClose onClick={() => setToggle(!toggle)} />

@@ -128,3 +128,31 @@ export const deleteMultipleCardsHandler = async (
     else return next("Server error!", 500);
   }
 };
+
+export const updateCardDetailsHandler = async (
+  req: any,
+  res: any,
+  next: any
+) => {
+  const body = req.body;
+  const cardId = body.cardId as string;
+  const card_name = body.name as string;
+  const bucket_name = body.bucketName as string;
+
+  try {
+    // GET BUCKETDATA FOR BUCKET-ID
+    const [bucketData] = (await db.execute(
+      "SELECT id FROM buckets WHERE bucket_name = ?;",
+      [bucket_name]
+    )) as any;
+    const bucketId = bucketData[0].id;
+    await db.execute(
+      "UPDATE cards SET card_name = ?, bucket_name = ? WHERE id = ?;",
+      [card_name, bucketId, cardId]
+    );
+    res.status(200).json({ result: "success" });
+  } catch (error: any) {
+    if (error.statusCode) return next(error);
+    else return next(new ErrorHandler("Server Error!", 500));
+  }
+};

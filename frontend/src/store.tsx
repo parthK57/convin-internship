@@ -7,6 +7,7 @@ import { CardSlice } from "./slices/CreateCardSlice";
 import { BucketsSlice } from "./slices/BucketsSlice";
 import { CardsSlice } from "./slices/CardsSlice";
 import { DeleteCardSlice } from "./slices/DeleteCardsSlice";
+import { EditCardModalSlice } from "./slices/EditCardModalSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     buckets: BucketsSlice.reducer,
     cards: CardsSlice.reducer,
     deleteCards: DeleteCardSlice.reducer,
+    editCardModal: EditCardModalSlice.reducer
   },
 });
 

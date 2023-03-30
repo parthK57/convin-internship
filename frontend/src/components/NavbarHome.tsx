@@ -2,12 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { distance, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { toggleModal } from "../slices/CreateBucketSlice";
 import { toggleCardModal } from "../slices/CreateCardSlice";
 import { bucketsArray, cardsArray } from "../pages/Home";
 import { useSelector } from "react-redux";
+import { setBuckets } from "../slices/BucketsSlice";
+import { setCards } from "../slices/CardsSlice";
 
 const NavbarHome = () => {
   const navigate = useNavigate();
@@ -17,7 +19,15 @@ const NavbarHome = () => {
   const buckets: bucketsArray = useSelector(
     (state: any) => state.buckets.value
   );
-  const cards: cardsArray = useSelector((state: any) => state.cards.value);
+
+  const logoutUser = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    dispatch(setBuckets([]));
+    dispatch(setCards([]));
+    navigate("/");
+  };
+
   return (
     <>
       <div className="w relative flex h-[70px] w-screen items-center justify-between bg-indigo-800 px-10 text-white">
@@ -28,8 +38,8 @@ const NavbarHome = () => {
           <span className="text-lg">Hello, {`${user}`}!</span>
           <span>
             <button
-              onClick={() => navigate("/")}
-              className="rounded-lg bg-amber-500 px-3 py-2 text-white"
+              onClick={logoutUser}
+              className="rounded-lg bg-amber-500 px-3 py-2 text-white hover:bg-amber-400"
             >
               Logout
             </button>
