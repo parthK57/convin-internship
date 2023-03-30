@@ -10,6 +10,7 @@ import { bucketsArray, cardsArray } from "../pages/Home";
 import { useSelector } from "react-redux";
 import { setBuckets } from "../slices/BucketsSlice";
 import { setCards } from "../slices/CardsSlice";
+import { setBucket } from "../slices/ActiveBucketSlice";
 
 const NavbarHome = () => {
   const navigate = useNavigate();
@@ -19,7 +20,9 @@ const NavbarHome = () => {
   const buckets: bucketsArray = useSelector(
     (state: any) => state.buckets.value
   );
-
+  const activeBucket: string = useSelector(
+    (state: any) => state.activeBucket.value
+  );
   const logoutUser = () => {
     localStorage.removeItem("email");
     localStorage.removeItem("password");
@@ -50,23 +53,35 @@ const NavbarHome = () => {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.17 }}
-            className="absolute top-0 left-0 flex h-screen w-screen flex-col items-center justify-center gap-8 bg-indigo-800"
+            className="absolute top-0 left-0 z-30 flex h-screen w-screen flex-col items-center justify-center gap-8 bg-indigo-800"
           >
             <span
               className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500"
-              onClick={() => dispatch(toggleModal({ isActive: true }))}
+              onClick={() => {
+                dispatch(toggleModal({ isActive: true }));
+                setToggle(!toggle);
+              }}
             >
               Create Bucket
             </span>
             <span
               className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500"
-              onClick={() => dispatch(toggleCardModal({ isActive: true }))}
+              onClick={() => {
+                dispatch(toggleCardModal({ isActive: true }));
+                setToggle(!toggle);
+              }}
             >
               Create Card
             </span>
             {buckets.map((bucket) => {
               return (
-                <span className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500">
+                <span
+                  onClick={() => {
+                    dispatch(setBucket(bucket.bucket_name));
+                    setToggle(!toggle);
+                  }}
+                  className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500"
+                >
                   {bucket.bucket_name}
                 </span>
               );

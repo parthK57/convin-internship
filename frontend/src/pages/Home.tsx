@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { setBuckets } from "../slices/BucketsSlice";
 import { setCards } from "../slices/CardsSlice";
+import { setBucket } from "../slices/ActiveBucketSlice";
 
 // TYPES
 interface bucket {
@@ -36,7 +37,7 @@ const Home = () => {
   const buckets: bucketsArray = useSelector(
     (state: any) => state.buckets.value
   );
-  const [activeBucket, setActiveBucket] = useState("");
+  const activeBucket = useSelector((state: any) => state.activeBucket.value);
   const cards: cardsArray = useSelector((state: any) => state.cards.value);
 
   async function getBucketData() {
@@ -140,7 +141,7 @@ const Home = () => {
               {buckets.map((bucket) => {
                 return (
                   <span
-                    onClick={() => setActiveBucket(bucket.bucket_name)}
+                    onClick={() => dispatch(setBucket(bucket.bucket_name))}
                     className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500"
                   >
                     {bucket.bucket_name}
