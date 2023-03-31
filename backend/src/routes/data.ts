@@ -13,12 +13,15 @@ import {
   updateCardDetailsHandler,
 } from "../controllers/data";
 
-dataRouter.get("/buckets", getBuckets);
-dataRouter.get("/cards", getCards);
-dataRouter.post("/buckets", createBucket);
-dataRouter.post("/cards", createCard);
-dataRouter.delete("/cards/card", deleteCardHandler);
-dataRouter.delete("/cards/multicards", deleteMultipleCardsHandler);
-dataRouter.post("/cards/update", updateCardDetailsHandler);
+// SERVICES
+import AccountVerifier from "../Services/AccountVerifier";
+
+dataRouter.get("/buckets", AccountVerifier, getBuckets);
+dataRouter.get("/cards", AccountVerifier, getCards);
+dataRouter.post("/buckets", AccountVerifier, createBucket);
+dataRouter.post("/cards", AccountVerifier, createCard);
+dataRouter.delete("/cards/card", AccountVerifier, deleteCardHandler);
+dataRouter.delete("/cards/multicards", AccountVerifier, deleteMultipleCardsHandler);
+dataRouter.post("/cards/update", AccountVerifier, updateCardDetailsHandler);
 
 export default dataRouter;

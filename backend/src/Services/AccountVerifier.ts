@@ -1,4 +1,3 @@
-
 import connectionPool from "../database/db";
 import { Decrypter } from "../Services/Bcrypt";
 import ErrorHandler from "../Services/ErrorHandler";
@@ -12,13 +11,13 @@ const AccountVerifier = async (req: any, res: any, next: any) => {
 
   try {
     const [userData] = (await db.execute(
-      "SELECT password FROM users WHERE email = ?;",
+      "SELECT user_password FROM users WHERE email = ?;",
       [email]
     )) as any;
     if (userData.length == 0)
       return next(new ErrorHandler("User not found!", 404));
 
-    const verifiedStatus = await Decrypter(password, userData[0].password);
+    const verifiedStatus = await Decrypter(password, userData[0].user_password);
     if (verifiedStatus) next();
     else return res.status(401).send("Invalid password!");
   } catch (error: any) {

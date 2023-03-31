@@ -56,6 +56,7 @@ const Home = () => {
         url: "http://localhost:5000/buckets",
         headers: {
           email: localStorage.getItem("email"),
+          password: localStorage.getItem("password"),
         },
       });
       dispatch(setBuckets(data));
@@ -71,6 +72,7 @@ const Home = () => {
         url: "http://localhost:5000/cards",
         headers: {
           email: localStorage.getItem("email"),
+          password: localStorage.getItem("password"),
         },
       });
       if (resp.status === 200) dispatch(setCards(resp.data));
