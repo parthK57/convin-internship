@@ -27,7 +27,7 @@ const SignUpForm = () => {
         if (status === 201) navigate("/");
       }
     } catch (error: any) {
-      alert(error.response.message);
+      alert(error.message);
     }
   };
 

@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import About from "./pages/About";
 
 // REDUX
 import { Provider } from "react-redux";
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Login />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/home" element={<Home />}></Route>
+          <Route path="/about" element={<About />}></Route>
         </Routes>
       </Provider>
     </>
