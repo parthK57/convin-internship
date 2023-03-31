@@ -81,8 +81,8 @@ export const createCard = async (req: any, res: any, next: any) => {
     )) as any;
     const userId = userData[0].id;
     const [bucketData] = (await db.execute(
-      "SELECT id FROM buckets WHERE bucket_name = ?;",
-      [bucket_name]
+      "SELECT id FROM buckets WHERE bucket_name = ? AND website_user = ?;",
+      [bucket_name, userId]
     )) as any;
     if (bucketData.length === 0)
       throw new ErrorHandler("Invalid bucket name!", 401);
