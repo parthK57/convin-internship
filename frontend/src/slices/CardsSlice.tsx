@@ -9,7 +9,10 @@ export const CardsSlice = createSlice({
     setCards: (state, action) => {
       state.value = action.payload;
     },
+    clearCards: (state) => {
+      state.value = [];
+    },
   },
 });
 
-export const { setCards } = CardsSlice.actions;
+export const { setCards, clearCards } = CardsSlice.actions;

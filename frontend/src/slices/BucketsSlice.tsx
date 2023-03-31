@@ -13,7 +13,10 @@ export const BucketsSlice = createSlice({
     setBuckets: (state, action) => {
       state.value = action.payload;
     },
+    clearBuckets: (state) => {
+      state.value = [{ bucket_name: "" }];
+    },
   },
 });
 
-export const { setBuckets } = BucketsSlice.actions;
+export const { setBuckets, clearBuckets } = BucketsSlice.actions;

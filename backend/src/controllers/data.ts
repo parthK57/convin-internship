@@ -4,9 +4,10 @@ import db from "../database/db";
 export const getBuckets = async (req: any, res: any, next: any) => {
   const email = req.headers.email as string;
   try {
-    const [userData] = (await db.execute("SELECT id FROM users ;", [
-      email,
-    ])) as any;
+    const [userData] = (await db.execute(
+      "SELECT id FROM users WHERE email = ?;",
+      [email]
+    )) as any;
     if (userData.length === 0) throw new ErrorHandler("Invalid email!", 401);
     const userId = userData[0].id;
     const [bucketData] = (await db.execute(
@@ -23,9 +24,10 @@ export const getBuckets = async (req: any, res: any, next: any) => {
 export const getCards = async (req: any, res: any, next: any) => {
   const email = req.headers.email;
   try {
-    const [userData] = (await db.execute("SELECT id FROM users ;", [
-      email,
-    ])) as any;
+    const [userData] = (await db.execute(
+      "SELECT id FROM users WHERE email = ?;",
+      [email]
+    )) as any;
     if (userData.length === 0) throw new ErrorHandler("Invalid email!", 401);
     const userId = userData[0].id;
 

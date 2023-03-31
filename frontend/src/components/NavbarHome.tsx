@@ -12,8 +12,8 @@ import { useSelector } from "react-redux";
 // SLICES
 import { toggleCardModal } from "../slices/CreateCardSlice";
 import { toggleModal } from "../slices/CreateBucketSlice";
-import { setBuckets } from "../slices/BucketsSlice";
-import { setCards } from "../slices/CardsSlice";
+import { clearBuckets } from "../slices/BucketsSlice";
+import { clearCards } from "../slices/CardsSlice";
 import { setBucket } from "../slices/ActiveBucketSlice";
 import { setState } from "../slices/HistorySlice";
 
@@ -28,8 +28,8 @@ const NavbarHome = () => {
   const logoutUser = () => {
     localStorage.removeItem("email");
     localStorage.removeItem("password");
-    dispatch(setBuckets([]));
-    dispatch(setCards([]));
+    dispatch(clearBuckets());
+    dispatch(clearCards());
     navigate("/");
   };
 

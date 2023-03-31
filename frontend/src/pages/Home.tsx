@@ -51,7 +51,7 @@ const Home = () => {
   // GET ALL THE BUCKETS FROM DB
   async function getBucketData() {
     try {
-      const { data } = await axios({
+      const resp = await axios({
         method: "get",
         url: "http://localhost:5000/buckets",
         headers: {
@@ -59,7 +59,7 @@ const Home = () => {
           password: localStorage.getItem("password"),
         },
       });
-      dispatch(setBuckets(data));
+      if (resp.status === 200) dispatch(setBuckets(resp.data));
     } catch (error: any) {
       alert(error.message);
     }
