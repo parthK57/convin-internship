@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { setBuckets } from "../slices/BucketsSlice";
 import { setCards } from "../slices/CardsSlice";
 import { setBucket } from "../slices/ActiveBucketSlice";
+import { setState } from "../slices/HistorySlice";
 
 const NavbarHome = () => {
   const navigate = useNavigate();
@@ -72,6 +73,15 @@ const NavbarHome = () => {
               }}
             >
               Create Card
+            </span>
+            <span
+              className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500"
+              onClick={() => {
+                dispatch(setState(true));
+                setToggle(!toggle);
+              }}
+            >
+              History
             </span>
             {buckets.map((bucket) => {
               return (

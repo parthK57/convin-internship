@@ -16,7 +16,7 @@ const IframeModal = () => {
         initial={{ opacity: 0, left: -1000, scale: 0 }}
         animate={{ opacity: 1, left: 0, scale: 1 }}
         transition={{ duration: 0.2 }}
-        className="absolute top-0 left-0 z-10 flex h-screen w-screen items-center justify-center bg-white"
+        className="absolute top-0 left-0 z-30 flex h-screen w-screen items-center justify-center bg-white"
         onClick={() => dispatch(clear())}
       >
         <embed

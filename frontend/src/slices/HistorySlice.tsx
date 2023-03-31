@@ -7,6 +7,7 @@ export const HistorySlice = createSlice({
     value: [
       {
         cardName: "",
+        link: "",
         bucketName: "",
         timestamp: "",
       },

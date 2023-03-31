@@ -8,12 +8,22 @@ import axios from "axios";
 import { addCard, removeCard } from "../../slices/DeleteCardsSlice";
 import EditCardModal from "./EditCardModal";
 import { setEditCardModal } from "../../slices/EditCardModalSlice";
+import { pushHistory } from "../../slices/HistorySlice";
+import TimeStamp from "../TimeStamp";
 
 const Card = ({ data }: any) => {
   const isActive = useSelector((state: any) => state.modal.value.isActive);
   const dispatch = useDispatch();
   const openModal = () => {
     dispatch(setModal({ isActive: true, link: data.link }));
+    dispatch(
+      pushHistory({
+        cardName: data.card_name,
+        link: data.link,
+        bucketName: data.bucket_name,
+        timestamp: TimeStamp(),
+      })
+    );
   };
   const [toggleDropDown, setToggleDropDown] = useState(false);
   const [borderStatus, setBorderStatus] = useState("border-none");
