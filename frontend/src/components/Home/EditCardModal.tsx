@@ -1,11 +1,14 @@
-import { AiOutlineClose } from "react-icons/ai";
-import { useDispatch } from "react-redux";
-import { clear } from "../../slices/ModalSlice";
-import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
-import { clearEditCardModal } from "../../slices/EditCardModalSlice";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 import axios from "axios";
+
+// COMPONENTS
+import { AiOutlineClose } from "react-icons/ai";
+
+// SLICES
+import { clear } from "../../slices/ModalSlice";
+import { clearEditCardModal } from "../../slices/EditCardModalSlice";
 
 const EditCardModal = () => {
   const dispatch = useDispatch();
@@ -80,10 +83,10 @@ const EditCardModal = () => {
               className="rounded-md bg-white px-2 py-2"
             >
               <option value={bucket}>{bucket}</option>
-              {buckets.map((bucket: any) => {
+              {buckets.map((bucket: any, index: number) => {
                 if (bucket.bucket_name !== bucketName)
                   return (
-                    <option value={bucket.bucket_name}>
+                    <option key={index} value={bucket.bucket_name}>
                       {bucket.bucket_name}
                     </option>
                   );

@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
+// COMPONENTS
+import { bucketsArray } from "../pages/Home";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
-import { useState } from "react";
-import { distance, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { toggleModal } from "../slices/CreateBucketSlice";
-import { toggleCardModal } from "../slices/CreateCardSlice";
-import { bucketsArray, cardsArray } from "../pages/Home";
 import { useSelector } from "react-redux";
+
+// SLICES
+import { toggleCardModal } from "../slices/CreateCardSlice";
+import { toggleModal } from "../slices/CreateBucketSlice";
 import { setBuckets } from "../slices/BucketsSlice";
 import { setCards } from "../slices/CardsSlice";
 import { setBucket } from "../slices/ActiveBucketSlice";
@@ -20,9 +24,6 @@ const NavbarHome = () => {
   const [toggle, setToggle] = useState(false);
   const buckets: bucketsArray = useSelector(
     (state: any) => state.buckets.value
-  );
-  const activeBucket: string = useSelector(
-    (state: any) => state.activeBucket.value
   );
   const logoutUser = () => {
     localStorage.removeItem("email");
@@ -83,9 +84,10 @@ const NavbarHome = () => {
             >
               History
             </span>
-            {buckets.map((bucket) => {
+            {buckets.map((bucket, index) => {
               return (
                 <span
+                  key={index}
                   onClick={() => {
                     dispatch(setBucket(bucket.bucket_name));
                     setToggle(!toggle);

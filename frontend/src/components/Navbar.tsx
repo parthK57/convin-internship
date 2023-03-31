@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+// COMPONENTS
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
-import { useState } from "react";
-import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);

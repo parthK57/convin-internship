@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
-import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { toggleModal } from "../../slices/CreateBucketSlice";
+
+// COMPONENTS
+import { AiOutlineClose } from "react-icons/ai";
 import BucketForm from "./BucketForm";
+
+// SLICES
+import { toggleModal } from "../../slices/CreateBucketSlice";
 
 const CreateBucket = () => {
   const dispatch = useDispatch();

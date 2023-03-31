@@ -1,10 +1,13 @@
+import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import { AiOutlineClose } from "react-icons/ai";
-import { pushHistory, setState } from "../../slices/HistorySlice";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { setModal } from "../../slices/ModalSlice";
 import TimeStamp from "../TimeStamp";
+
+// COMPONENTS
+import { AiOutlineClose } from "react-icons/ai";
+
+// SLICES
+import { pushHistory, setState } from "../../slices/HistorySlice";
+import { setModal } from "../../slices/ModalSlice";
 
 // TYPES
 interface history {
@@ -39,6 +42,7 @@ const HistoryModal = () => {
             if (card.cardName !== "") {
               return (
                 <tr
+                  key={index}
                   onClick={() => {
                     dispatch(setModal({ isActive: true, link: card.link }));
                     dispatch(

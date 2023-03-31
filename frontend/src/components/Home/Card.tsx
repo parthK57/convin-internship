@@ -1,15 +1,18 @@
-import { BsCameraVideoFill, BsThreeDotsVertical } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import Modal from "./IframeModal";
-import { setModal } from "../../slices/ModalSlice";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { addCard, removeCard } from "../../slices/DeleteCardsSlice";
+import TimeStamp from "../TimeStamp";
+
+// COMPONENTS
+import { BsCameraVideoFill, BsThreeDotsVertical } from "react-icons/bs";
+import Modal from "./IframeModal";
 import EditCardModal from "./EditCardModal";
+
+// SLICES
+import { setModal } from "../../slices/ModalSlice";
+import { addCard, removeCard } from "../../slices/DeleteCardsSlice";
 import { setEditCardModal } from "../../slices/EditCardModalSlice";
 import { pushHistory } from "../../slices/HistorySlice";
-import TimeStamp from "../TimeStamp";
 
 const Card = ({ data }: any) => {
   const isActive = useSelector((state: any) => state.modal.value.isActive);

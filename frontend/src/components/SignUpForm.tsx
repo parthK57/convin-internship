@@ -11,7 +11,6 @@ const SignUpForm = () => {
 
   const signUpUser = async (e: any) => {
     e.preventDefault();
-    // TODO: CREATE AXIOS POST REQ
     try {
       if (confirmPassword !== password)
         throw new Error("Passwords do not match!");

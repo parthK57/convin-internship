@@ -1,18 +1,21 @@
+import { useEffect } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+
+// COMPONENTS
 import Card from "../components/Home/Card";
-import { FaHistory } from "react-icons/fa";
 import NavbarHome from "../components/NavbarHome";
-import { useDispatch } from "react-redux";
-import { toggleModal } from "../slices/CreateBucketSlice";
-import { useSelector } from "react-redux";
 import CreateBucket from "../components/Home/CreateBucket";
 import CreateCard from "../components/Home/CreateCard";
+import HistoryModal from "../components/Home/HistoryModal";
+import { FaHistory } from "react-icons/fa";
+
+// SLICES
+import { toggleModal } from "../slices/CreateBucketSlice";
 import { toggleCardModal } from "../slices/CreateCardSlice";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { setBuckets } from "../slices/BucketsSlice";
 import { setCards } from "../slices/CardsSlice";
 import { setBucket } from "../slices/ActiveBucketSlice";
-import HistoryModal from "../components/Home/HistoryModal";
 import { setState } from "../slices/HistorySlice";
 
 // TYPES
@@ -45,6 +48,7 @@ const Home = () => {
     (state: any) => state.history.isActive
   );
 
+  // GET ALL THE BUCKETS FROM DB
   async function getBucketData() {
     try {
       const { data } = await axios({
@@ -59,6 +63,7 @@ const Home = () => {
       alert(error.message);
     }
   }
+  // GET ALL THE CARDS FROM DB
   async function getCardData() {
     try {
       const resp = await axios({
@@ -143,9 +148,10 @@ const Home = () => {
               >
                 Create Card
               </span>
-              {buckets.map((bucket) => {
+              {buckets.map((bucket, index) => {
                 return (
                   <span
+                    key={index}
                     onClick={() => dispatch(setBucket(bucket.bucket_name))}
                     className="pointer-events-auto flex cursor-pointer px-5 py-2 text-base hover:text-indigo-500"
                   >
@@ -164,8 +170,9 @@ const Home = () => {
           </span>
         </div>
         <div className="grid-col-1 grid w-[100%] gap-5 overflow-y-scroll p-20 sm:grid-cols-2 md:w-[75%] md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {cards.map((card) => {
-            if (card.bucket_name === activeBucket) return <Card data={card} />;
+          {cards.map((card, index) => {
+            if (card.bucket_name === activeBucket)
+              return <Card key={index} data={card} />;
             else return null;
           })}
         </div>

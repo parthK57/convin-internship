@@ -1,8 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import axios from "axios";
-import { toggleCardModal } from "../../slices/CreateCardSlice";
 import { useSelector } from "react-redux";
+import axios from "axios";
+
+// SLICES
+import { toggleCardModal } from "../../slices/CreateCardSlice";
 
 const CardForm = () => {
   const dispatch = useDispatch();
@@ -60,9 +62,11 @@ const CardForm = () => {
             className="rounded-md bg-white px-2 py-2"
           >
             <option value="">Not Selected</option>
-            {buckets.map((bucket: any) => {
+            {buckets.map((bucket: any, index: number) => {
               return (
-                <option value={bucket.bucket_name}>{bucket.bucket_name}</option>
+                <option key={index} value={bucket.bucket_name}>
+                  {bucket.bucket_name}
+                </option>
               );
             })}
           </select>

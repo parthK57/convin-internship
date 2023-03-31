@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
-import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { toggleCardModal } from "../../slices/CreateCardSlice";
+
+// COMPONENTS
+import { AiOutlineClose } from "react-icons/ai";
 import CardForm from "./CardForm";
+
+// SLICES
+import { toggleCardModal } from "../../slices/CreateCardSlice";
 
 const CreateCard = () => {
   const dispatch = useDispatch();

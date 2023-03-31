@@ -1,8 +1,11 @@
-import { AiOutlineClose } from "react-icons/ai";
-import { useDispatch } from "react-redux";
-import { clear } from "../../slices/ModalSlice";
+import { useSelector,useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+
+// COMPONENTS
+import { AiOutlineClose } from "react-icons/ai";
+
+// SLICES
+import { clear } from "../../slices/ModalSlice";
 
 const IframeModal = () => {
   const dispatch = useDispatch();
